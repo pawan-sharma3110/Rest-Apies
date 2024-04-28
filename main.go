@@ -8,7 +8,7 @@ import (
 func main() {
 	http.HandleFunc("/accounts/all", handlers.GetAccounts)
 	http.HandleFunc("/accounts/{account_number}", handlers.GetAccountByAccountNumber)
-	// http.HandleFunc("/accounts/{customer_id}", handlers.GetAccountByCustomerID)
+	http.HandleFunc("/accounts/custmorid/{customer_id}", handlers.GetAccountByCustomerID)
 	http.HandleFunc("/accounts/new", handlers.CreateAccount)
 	http.HandleFunc("/accounts/update/{account_number}", handlers.UpdateAccount)
 	http.HandleFunc("/accounts/delete/{account_number}", handlers.DeleteAccount)
