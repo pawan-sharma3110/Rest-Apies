@@ -13,6 +13,11 @@ func main() {
 	http.HandleFunc("/accounts/update/{account_number}", handlers.UpdateAccount)
 	http.HandleFunc("/accounts/delete/{account_number}", handlers.DeleteAccount)
 
+	// Customer Apies
+	http.HandleFunc("/customer/new", handlers.CreatCustomer)
+	http.HandleFunc("/customer/all", handlers.AllCustomer)
+	http.HandleFunc("/customer/search/{id}", handlers.SearchById)
+
 	http.ListenAndServe(":8080", nil)
 
 	//  Declaring a slice

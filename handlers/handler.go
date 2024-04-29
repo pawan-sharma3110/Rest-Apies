@@ -124,7 +124,7 @@ func GetAccountByCustomerID(w http.ResponseWriter, r *http.Request) {
 		for _, account := range accounts {
 			if account.CustomerID == peramsId {
 				w.Header().Set("Content-Type", "application/json")
-				w.WriteHeader(http.StatusFound)
+				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(account)
 				return
 			} else {
