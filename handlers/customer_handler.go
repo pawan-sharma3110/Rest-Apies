@@ -106,20 +106,28 @@ func AllCustomer(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode([]string{"Only get reqest allowed"})
 	}
 }
+
 func SearchById(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		paramsId := r.PathValue("Id")
+		paramsId := r.PathValue("id")
+		idExists := false
 		id, _ := strconv.Atoi(paramsId)
 		for _, v := range allCustomer {
 			if v.ID == id {
+				idExists = true
 				w.Header().Set("Content-Type", "aplication/json")
 				w.WriteHeader(http.StatusOK)
 				json.NewEncoder(w).Encode(v)
-
-			} else {
-				json.NewEncoder(w).Encode("This id dose not extis.")
+				break
 			}
+
 		}
+		if !idExists {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"message": "This id does not exist."})
+		}
+
 	} else {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusBadRequest)
