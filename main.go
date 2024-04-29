@@ -17,27 +17,9 @@ func main() {
 	http.HandleFunc("/customer/new", handlers.CreatCustomer)
 	http.HandleFunc("/customer/all", handlers.AllCustomer)
 	http.HandleFunc("/customer/search/{id}", handlers.SearchById)
+	http.HandleFunc("/customer/deletebyid/{id}", handlers.DeleteById)
+	http.HandleFunc("/customer/updatebyid/{id}", handlers.UpdateById)
 
 	http.ListenAndServe(":8080", nil)
-
-	//  Declaring a slice
-	//  numbers := []int{10, 20, 30, 40, 50, 90, 60}
-	//  fmt.Println("Original Slice:", numbers)
-
-	//  var index int = 3
-
-	//  // Get the element at the provided index in the slice
-	//  elem := numbers[index]
-
-	// //  Using append function to combine two slices
-	// //  first slice is the slice of all the elements before the given index
-	// //  second slice is the slice of all the elements after the given index
-	// //  append function appends the second slice to the end of the first slice
-	// //  returning a slice, so we store it in the form of a slice
-	//  numbers = append(numbers[:index], numbers[index+1:]...)
-
-	//  fmt.Printf("The element %d was deleted.\n", elem)
-	//  fmt.Println("Slice after deleting elements:", numbers)
-	//  print(elem)
 
 }

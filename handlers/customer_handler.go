@@ -134,3 +134,65 @@ func SearchById(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(map[string]string{"message": "Customer not found,Please make an get request."})
 	}
 }
+func DeleteById(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodDelete {
+		paramsId := r.PathValue("id")
+		id, _ := strconv.Atoi(paramsId)
+		idExists := false
+		for i, v := range allCustomer {
+			if v.ID == id {
+				idExists = true
+				allCustomer = append(allCustomer[:i], allCustomer[i+1:]...)
+				json.NewEncoder(w).Encode(map[string]string{"message": "Deleted"})
+				w.WriteHeader(http.StatusOK)
+				w.Header().Set("Request/Methord", "Delete recquired")
+			}
+
+		}
+		if !idExists {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"message": "This id does not exist."})
+		}
+
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Header().Set("Request/Methord", "Delete recquired")
+		json.NewEncoder(w).Encode("Delete request required only")
+	}
+}
+
+func UpdateById(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == http.MethodPatch {
+		paramsId := r.PathValue("id")
+		id, _ := strconv.Atoi(paramsId)
+		idExists := false
+		for i, v := range allCustomer {
+			if v.ID == id {
+				idExists = true
+				var updatedData models.Customer
+				w.WriteHeader(http.StatusFound)
+				w.Header().Set("Content-Type", "application/json")
+				json.NewDecoder(r.Body).Decode(&updatedData)
+				allCustomer[i].Name = updatedData.Name
+				allCustomer[i].DOB = updatedData.DOB
+				allCustomer[i].Address = updatedData.Address
+				json.NewEncoder(w).Encode(allCustomer[i])
+
+				return
+			}
+
+		}
+		if !idExists {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(w).Encode(map[string]string{"message": "This id does not exist."})
+		}
+
+	} else {
+		w.Header().Set("Content-Type", "aplication/json")
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode("Patchrequest required only")
+	}
+}
