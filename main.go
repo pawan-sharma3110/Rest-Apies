@@ -20,6 +20,11 @@ func main() {
 	http.HandleFunc("/customer/deletebyid/{id}", handlers.DeleteById)
 	http.HandleFunc("/customer/updatebyid/{id}", handlers.UpdateById)
 
+	// Test Apies
+	http.HandleFunc("/allpost", handlers.GetAllPost)
+	http.HandleFunc("/searchbyid/{id}", handlers.GetPostByid)
+	http.HandleFunc("/updatebyid/{id}", handlers.UpdatePostById )
 	http.ListenAndServe(":8080", nil)
 
 }
+ 
