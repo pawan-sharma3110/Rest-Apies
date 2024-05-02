@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	http.HandleFunc("/accounts/all", handlers.GetAccounts)
 	http.HandleFunc("/accounts/{account_number}", handlers.GetAccountByAccountNumber)
 	http.HandleFunc("/accounts/custmorid/{customer_id}", handlers.GetAccountByCustomerID)
@@ -23,8 +24,7 @@ func main() {
 	// Test Apies
 	http.HandleFunc("/allpost", handlers.GetAllPost)
 	http.HandleFunc("/searchbyid/{id}", handlers.GetPostByid)
-	http.HandleFunc("/updatebyid/{id}", handlers.UpdatePostById )
+	http.HandleFunc("/updatebyid/{id}", handlers.UpdatePostById)
 	http.ListenAndServe(":8080", nil)
 
 }
- 

@@ -133,6 +133,7 @@ func SearchById(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(map[string]string{"message": "Customer not found,Please make an get request."})
 	}
+
 }
 func DeleteById(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodDelete {
